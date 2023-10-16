@@ -1,0 +1,6 @@
+-- Your SQL goes here
+CREATE TABLE user (
+	id INTEGER AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(100) NOT NULL,
+	last_name VARCHAR(100) NOT NULL
+);
