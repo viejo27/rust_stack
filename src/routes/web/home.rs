@@ -1,4 +1,4 @@
-use actix_web::{get,  HttpResponse, Responder};
+use actix_web::{get, HttpResponse, Responder};
 use askama::Template; // bring trait in scope
 
 #[derive(Template)] // this will generate the code...
