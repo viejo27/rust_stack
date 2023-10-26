@@ -1,19 +1,21 @@
-use actix_web::{get, HttpResponse, Responder};
-use askama::Template; // bring trait in scope
+use actix_web::{web, get, HttpResponse, Responder};
+use askama::Template;
+use sqlx::MySqlPool;
 
-#[derive(Template)] // this will generate the code...
-#[template(path = "index.html")] // using the template in this path, relative
-                                 // to the `templates` dir in the crate root
-struct HelloTemplate<'a> { // the name of the struct can be anything
-    name: &'a str, // the field name should match the variable name
-                   // in your template
+#[derive(Template)]
+#[template(path = "index.html")]
+struct IndexTemplate<'a> {
+    name: &'a i64,
 }
 
 #[get("/")]
-async fn hello() -> impl Responder {
-    let hello = HelloTemplate { name: "Askama" }; // instantiate your struct
-    // println!("{}", hello.render().unwrap()); // then render it.
-    // hello.render().unwrap()); // then render it.
+async fn index(db_pool: web::Data<MySqlPool>) -> impl Responder {
+    let res = sqlx::query!("SELECT 20 + 7 as sum")
+        .fetch_one(db_pool.get_ref())
+        .await
+        .expect("Error executing query");
+    let hello = IndexTemplate { name: &res.sum };
     HttpResponse::Ok().body(hello.render().unwrap())
+    // format!("La suma es = {}",res.sum)
 }
 
