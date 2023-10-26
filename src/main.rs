@@ -10,15 +10,6 @@ use std::env;
 use routes::web::home::index;
 use sqlx::MySqlPool;
 
-// struct AppState {
-//     db_pool: Pool<ConnectionManager<MysqlConnection>>,
-// }
-
-// fn establish_connection_pool(database_ulr: &str) -> Pool<ConnectionManager<MysqlConnection>> {
-//     let manager = ConnectionManager::<MysqlConnection>::new(database_ulr);
-//     Pool::builder().build(manager).expect("Failed to create connection pool")
-// }
-
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     dotenv().ok();

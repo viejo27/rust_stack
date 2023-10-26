@@ -16,6 +16,5 @@ async fn index(db_pool: web::Data<MySqlPool>) -> impl Responder {
         .expect("Error executing query");
     let hello = IndexTemplate { name: &res.sum };
     HttpResponse::Ok().body(hello.render().unwrap())
-    // format!("La suma es = {}",res.sum)
 }
 
